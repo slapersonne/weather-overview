@@ -19,10 +19,9 @@
                         %a.navbar-brand{:href => "#"} Weather Overview
 
         #main-region.container
-            %p Text to be replaced
 
-        %script#location-template{:type => "text/template"}
-            %p '<%- title %>' is '<%- name %>'
+        %script#location-list-item-template{:type => "text/template"}
+            '<%- title %>' is '<%- name %>'
 
         %footer
 
@@ -45,27 +44,39 @@
             \       title: "Default Title"
             \   }
             \});
+
+            \WeatherOverviewApp.LocationCollection = Backbone.Collection.extend({
+            \   model: WeatherOverviewApp.Location
+            \});
             
             \WeatherOverviewApp.LocationView = Marionette.ItemView.extend({
-            \   template: "#location-template",
-            \    events: {
-            \       "click p": "alertPosition"
-            \   },
-            \   alertPosition: function(){
-            \       alert('latitude : ' + this.model.escape("latitude") + ', longitude : ' + this.model.escape("longitude"));
-            \   }
+            \   tagName: "li",
+            \   template: "#location-list-item-template"
+            \});
+
+            \WeatherOverviewApp.LocationsView = Marionette.CollectionView.extend({
+            \   tagName: "ul",
+            \   childView: WeatherOverviewApp.LocationView
             \});
 
             \WeatherOverviewApp.on("start", function(){
-            \   var location1 = new WeatherOverviewApp.Location({
+
+            \   var locations = new WeatherOverviewApp.LocationCollection([
+            \   {
             \       name: "Clermont-Ferrand",
-            \       latitude: "0.0",
-            \       longitude: "0.0"
-            \   })
-            \   var location1View = new WeatherOverviewApp.LocationView({
-            \       model: location1
+            \   },
+            \   {
+            \       name: "Royat",
+            \   },
+            \   {
+            \       title: "02170",
+            \       name: "Le Nouvion en Thiérache",
+            \   }]);
+
+            \   var locationsListView = new WeatherOverviewApp.LocationsView({
+            \       collection: locations
             \   });
-            \   WeatherOverviewApp.mainRegion.show(location1View);
+            \   WeatherOverviewApp.mainRegion.show(locationsListView);
             \});
 
             \WeatherOverviewApp.start();
