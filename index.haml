@@ -1,0 +1,28 @@
+!!! 5
+%html(lang="en")
+
+    %head
+        %meta(charset="utf-8")
+        %title Weather Overview
+        %meta(description="See current weather in your favorite locations")
+        %meta(author="Simon La Personne")
+        %link(href="./assets/css/bootstrap.css", rel="stylesheet")
+        %link(href="./assets/css/starter-template.css", rel="stylesheet")
+        %link(href="./assets/css/application.css", rel="stylesheet")
+  
+    %body
+        %header
+            %nav.navbar.navbar-inverse.navbar-fixed-top
+                .container
+                    .navbar-header
+                        %a.navbar-brand(href="#") Weather Overview
+        #content
+            %section.container
+                %p Let's begin !
+        %footer
+
+        %script(type="text/javascript", src="./lib/jquery.js")
+        %script(type="text/javascript", src="./lib/underscore.js")
+        %script(type="text/javascript", src="./lib/backbone.js")
+        %script(type="text/javascript", src="./lib/backbone.marionette.js")
+        %script(type="text/javascript", src="./lib/bootstrap.js")
