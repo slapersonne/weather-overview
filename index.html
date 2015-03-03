@@ -30,44 +30,11 @@
     <script src='./lib/backbone.js' type='text/javascript'></script>
     <script src='./lib/backbone.marionette.js' type='text/javascript'></script>
     <script src='./lib/bootstrap.js' type='text/javascript'></script>
+    <script src='./assets/js/weatherOverview.js' type='text/javascript'></script>
+    <script src='./assets/js/entities/location.js' type='text/javascript'></script>
+    <script src='./assets/js/apps/locations/listView.js' type='text/javascript'></script>
+    <script src='./assets/js/apps/locations/listController.js' type='text/javascript'></script>
     <script type='text/javascript'>
-      var WeatherOverviewApp = new Marionette.Application();
-      WeatherOverviewApp.addRegions({
-         mainRegion: "#main-region"
-      });
-      WeatherOverviewApp.Location = Backbone.Model.extend({
-         defaults: {
-             title: "Default Title"
-         }
-      });
-      WeatherOverviewApp.LocationCollection = Backbone.Collection.extend({
-         model: WeatherOverviewApp.Location
-      });
-      WeatherOverviewApp.LocationView = Marionette.ItemView.extend({
-         tagName: "li",
-         template: "#location-list-item-template"
-      });
-      WeatherOverviewApp.LocationsView = Marionette.CollectionView.extend({
-         tagName: "ul",
-         childView: WeatherOverviewApp.LocationView
-      });
-      WeatherOverviewApp.on("start", function(){
-         var locations = new WeatherOverviewApp.LocationCollection([
-         {
-             name: "Clermont-Ferrand",
-         },
-         {
-             name: "Royat",
-         },
-         {
-             title: "02170",
-             name: "Le Nouvion en Thiérache",
-         }]);
-         var locationsListView = new WeatherOverviewApp.LocationsView({
-             collection: locations
-         });
-         WeatherOverviewApp.mainRegion.show(locationsListView);
-      });
       WeatherOverviewApp.start();
     </script>
   </body>

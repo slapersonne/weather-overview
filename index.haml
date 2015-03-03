@@ -32,51 +32,10 @@
         %script{:type => "text/javascript", :src => "./lib/backbone.marionette.js"}
         %script{:type => "text/javascript", :src => "./lib/bootstrap.js"}
 
+        %script{:type => "text/javascript", :src => "./assets/js/weatherOverview.js"}
+        %script{:type => "text/javascript", :src => "./assets/js/entities/location.js"}
+        %script{:type => "text/javascript", :src => "./assets/js/apps/locations/listView.js"}
+        %script{:type => "text/javascript", :src => "./assets/js/apps/locations/listController.js"}
+
         %script{:type => "text/javascript"}
-            \var WeatherOverviewApp = new Marionette.Application();
-
-            \WeatherOverviewApp.addRegions({
-            \   mainRegion: "#main-region"
-            \});
-
-            \WeatherOverviewApp.Location = Backbone.Model.extend({
-            \   defaults: {
-            \       title: "Default Title"
-            \   }
-            \});
-
-            \WeatherOverviewApp.LocationCollection = Backbone.Collection.extend({
-            \   model: WeatherOverviewApp.Location
-            \});
-            
-            \WeatherOverviewApp.LocationView = Marionette.ItemView.extend({
-            \   tagName: "li",
-            \   template: "#location-list-item-template"
-            \});
-
-            \WeatherOverviewApp.LocationsView = Marionette.CollectionView.extend({
-            \   tagName: "ul",
-            \   childView: WeatherOverviewApp.LocationView
-            \});
-
-            \WeatherOverviewApp.on("start", function(){
-
-            \   var locations = new WeatherOverviewApp.LocationCollection([
-            \   {
-            \       name: "Clermont-Ferrand",
-            \   },
-            \   {
-            \       name: "Royat",
-            \   },
-            \   {
-            \       title: "02170",
-            \       name: "Le Nouvion en Thiérache",
-            \   }]);
-
-            \   var locationsListView = new WeatherOverviewApp.LocationsView({
-            \       collection: locations
-            \   });
-            \   WeatherOverviewApp.mainRegion.show(locationsListView);
-            \});
-
             \WeatherOverviewApp.start();
