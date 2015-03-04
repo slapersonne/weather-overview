@@ -6,8 +6,10 @@
         %title Weather Overview
         %meta{:description => "See current weather in your favorite locations"}
         %meta{:author => "Simon La Personne"}
-        %link{:href => "./assets/css/bootstrap.css", :rel => "stylesheet"}
-        %link{:href => "./assets/css/starter-template.css", :rel => "stylesheet"}
+        %link{:href => "./external/css/bootstrap.css", :rel => "stylesheet"}
+        %link{:href => "./external/css/jquery-ui.css", :rel => "stylesheet"}
+        %link{:href => "./external/css/jquery-ui-theme.css", :rel => "stylesheet"}
+        %link{:href => "./external/css/jquery-ui-structure.css", :rel => "stylesheet"}
         %link{:href => "./assets/css/application.css", :rel => "stylesheet"}
   
     %body
@@ -20,22 +22,67 @@
 
         #main-region.container
 
+        #dialog-region
+
+        %script#location-layout-template{:type => "text/template"}
+            #panel-region
+            #locations-region
+
+        %script#location-panel-template{:type => "text/template"}
+            %a.btn.btn-lg.btn-success.js-create{:href => "#"} 
+                %i.glyphicon.glyphicon-plus
+                Add Location
+
+        %script#location-list-template{:type => "text/template"}
+            %thead
+                %tr
+                    %th Title
+                    %th Name
+                    %th
+            %tbody
+
         %script#location-list-item-template{:type => "text/template"}
-            '<%- title %>' is '<%- name %>'
+            %td <%- title %>
+            %td <%- name %>
+            %td
+                %button.btn.btn-xs.btn-danger.js-delete
+                    %i.glyphicon.glyphicon-remove
+                    Delete
+
+        %script#location-creation-form-layout{:type => "text/template"}
+            %h3 Add a new location
+            %form
+                .form-group
+                    %label{:for => "location-title"} Title
+                    %input#location-title{:name => "title", :type => "text", :value => ""}
+                .form-group
+                    %label{:for => "location-name"} City Name
+                    %input#location-name{:name => "name", :type => "text", :value => ""}
+                .form-group
+                    %label{:for => "location-title"} Latitude
+                    %input#location-latitude{:name => "latitude", :type => "text", :value => ""}
+                .form-group
+                    %label{:for => "location-title"} Longitude
+                    %input#location-longitude{:name => "longitude", :type => "text", :value => ""}
+                %button.btn.btn-success.js-submit Add location
 
         %footer
 
-        %script{:type => "text/javascript", :src => "./lib/jquery-2.1.3.js"}
-        %script{:type => "text/javascript", :src => "./lib/json2.js"}
-        %script{:type => "text/javascript", :src => "./lib/underscore.js"}
-        %script{:type => "text/javascript", :src => "./lib/backbone.js"}
-        %script{:type => "text/javascript", :src => "./lib/backbone.marionette.js"}
-        %script{:type => "text/javascript", :src => "./lib/bootstrap.js"}
+        %script{:type => "text/javascript", :src => "./external/js/jquery-2.1.3.js"}
+        %script{:type => "text/javascript", :src => "./external/js/jquery-ui.js"}
+        %script{:type => "text/javascript", :src => "./external/js/json2.js"}
+        %script{:type => "text/javascript", :src => "./external/js/underscore.js"}
+        %script{:type => "text/javascript", :src => "./external/js/backbone.js"}
+        %script{:type => "text/javascript", :src => "./external/js/backbone.syphon.js"}
+        %script{:type => "text/javascript", :src => "./external/js/backbone.marionette.js"}
+        %script{:type => "text/javascript", :src => "./external/js/bootstrap.js"}
 
         %script{:type => "text/javascript", :src => "./assets/js/weatherOverview.js"}
         %script{:type => "text/javascript", :src => "./assets/js/entities/location.js"}
-        %script{:type => "text/javascript", :src => "./assets/js/apps/locations/listView.js"}
-        %script{:type => "text/javascript", :src => "./assets/js/apps/locations/listController.js"}
+        %script{:type => "text/javascript", :src => "./assets/js/apps/locations/list/listView.js"}
+        %script{:type => "text/javascript", :src => "./assets/js/apps/locations/list/listController.js"}
+        %script{:type => "text/javascript", :src => "./assets/js/apps/locations/create/createView.js"}
+        %script{:type => "text/javascript", :src => "./assets/js/apps/locations/create/createController.js"}
 
         %script{:type => "text/javascript"}
             \WeatherOverviewApp.start();
