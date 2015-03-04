@@ -1,3 +1,19 @@
 body {
-  padding-top: 60px; /* 60px to make the container make room for the navigation bar */
+  padding-top: 100px; /* 100px to make the container make room for the navigation bar */
+}
+
+.container {
+	padding-top: 30px; /* give some air to the container */
+}
+
+.location-text {
+	font-size: 20px; /* default police size for displayed data */
+}
+
+.location-text .weather-info {
+	font-size: 40px; /* default police size for weather data (bigger than other info) */
+}
+
+.delete-button {
+	margin-top: 20px; /* put  the delete button in the center of the group item */
 }

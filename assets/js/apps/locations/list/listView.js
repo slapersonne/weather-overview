@@ -28,13 +28,8 @@ WeatherOverviewApp.module("LocationsApp.List", function(List, WeatherOverviewApp
 		template: "#location-list-item-template",
 
 		events: {
-			"click": "highlightRow",
-			"click button.js-delete": "deleteClicked"
+			"click a.js-delete": "deleteClicked"
 		}, 
-
-		highlightRow: function(e){
-			this.$el.toggleClass("warning");
-		},
 
 		deleteClicked: function(e){
 			e.stopPropagation();
@@ -54,8 +49,7 @@ WeatherOverviewApp.module("LocationsApp.List", function(List, WeatherOverviewApp
 		tagName: "table",
 		className: "table table-hover",
 		template: "#location-list-template",
-		childView: List.Location,
-		childViewContainer: "tbody"
+		childView: List.Location
 	});
 
 });

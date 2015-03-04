@@ -10,6 +10,7 @@
         %link{:href => "./external/css/jquery-ui.css", :rel => "stylesheet"}
         %link{:href => "./external/css/jquery-ui-theme.css", :rel => "stylesheet"}
         %link{:href => "./external/css/jquery-ui-structure.css", :rel => "stylesheet"}
+        %link{:href => "./external/css/weather-icons.css", :rel => "stylesheet"}
         %link{:href => "./assets/css/application.css", :rel => "stylesheet"}
   
     %body
@@ -34,35 +35,50 @@
                 Add Location
 
         %script#location-list-template{:type => "text/template"}
-            %thead
-                %tr
-                    %th Title
-                    %th Name
-                    %th
-            %tbody
+            .container.list-group
 
         %script#location-list-item-template{:type => "text/template"}
-            %td <%- title %>
-            %td <%- name %>
-            %td
-                %button.btn.btn-xs.btn-danger.js-delete
-                    %i.glyphicon.glyphicon-remove
-                    Delete
+            .row.list-group-item.location-text
+                .col-sm-4.col-xs-10
+                    %strong <%- title %>
+                    %br
+                    <%- name %>
+                    %span.visible-xs-inline
+                        %br
+                        %i.wi.wi-day-lightning
+                        12°C
+                .col-sm-3.hidden-xs
+                    Latitude : <%- latitude %>
+                    %br
+                    Longitude : <%- longitude %>
+                .col-sm-4.visible-sm-block
+                    %i.wi.wi-day-lightning
+                    %br
+                    12°C
+                .col-md-2.hidden-xs.hidden-sm.weather-info
+                    %i.wi.wi-day-lightning
+                .col-md-2.hidden-xs.hidden-sm.weather-info
+                    12°C
+                %a.glyphicon.glyphicon-remove.col-sm-1.col-xs-2.delete-button.js-delete
 
         %script#location-creation-form-layout{:type => "text/template"}
             %h3 Add a new location
             %form
                 .form-group
                     %label{:for => "location-title"} Title
+                    %br
                     %input#location-title{:name => "title", :type => "text", :value => ""}
                 .form-group
                     %label{:for => "location-name"} City Name
+                    %br
                     %input#location-name{:name => "name", :type => "text", :value => ""}
                 .form-group
                     %label{:for => "location-title"} Latitude
+                    %br
                     %input#location-latitude{:name => "latitude", :type => "text", :value => ""}
                 .form-group
                     %label{:for => "location-title"} Longitude
+                    %br
                     %input#location-longitude{:name => "longitude", :type => "text", :value => ""}
                 %button.btn.btn-success.js-submit Add location
 

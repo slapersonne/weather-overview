@@ -9,6 +9,7 @@
     <link href='./external/css/jquery-ui.css' rel='stylesheet'>
     <link href='./external/css/jquery-ui-theme.css' rel='stylesheet'>
     <link href='./external/css/jquery-ui-structure.css' rel='stylesheet'>
+    <link href='./external/css/weather-icons.css' rel='stylesheet'>
     <link href='./assets/css/application.css' rel='stylesheet'>
   </head>
   <body>
@@ -34,42 +35,60 @@
       </a>
     </script>
     <script id='location-list-template' type='text/template'>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Name</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody></tbody>
+      <div class='container list-group'></div>
     </script>
     <script id='location-list-item-template' type='text/template'>
-      <td><%- title %></td>
-      <td><%- name %></td>
-      <td>
-        <button class='btn btn-xs btn-danger js-delete'>
-          <i class='glyphicon glyphicon-remove'></i>
-          Delete
-        </button>
-      </td>
+      <div class='row list-group-item location-text'>
+        <div class='col-sm-4 col-xs-10'>
+          <strong><%- title %></strong>
+          <br>
+          <%- name %>
+          <span class='visible-xs-inline'>
+            <br>
+            <i class='wi wi-day-lightning'></i>
+            12°C
+          </span>
+        </div>
+        <div class='col-sm-3 hidden-xs'>
+          Latitude : <%- latitude %>
+          <br>
+          Longitude : <%- longitude %>
+        </div>
+        <div class='col-sm-4 visible-sm-block'>
+          <i class='wi wi-day-lightning'></i>
+          <br>
+          12°C
+        </div>
+        <div class='col-md-2 hidden-xs hidden-sm weather-info'>
+          <i class='wi wi-day-lightning'></i>
+        </div>
+        <div class='col-md-2 hidden-xs hidden-sm weather-info'>
+          12°C
+        </div>
+        <a class='glyphicon glyphicon-remove col-sm-1 col-xs-2 delete-button js-delete'></a>
+      </div>
     </script>
     <script id='location-creation-form-layout' type='text/template'>
       <h3>Add a new location</h3>
       <form>
         <div class='form-group'>
           <label for='location-title'>Title</label>
+          <br>
           <input id='location-title' name='title' type='text' value=''>
         </div>
         <div class='form-group'>
           <label for='location-name'>City Name</label>
+          <br>
           <input id='location-name' name='name' type='text' value=''>
         </div>
         <div class='form-group'>
           <label for='location-title'>Latitude</label>
+          <br>
           <input id='location-latitude' name='latitude' type='text' value=''>
         </div>
         <div class='form-group'>
           <label for='location-title'>Longitude</label>
+          <br>
           <input id='location-longitude' name='longitude' type='text' value=''>
         </div>
         <button class='btn btn-success js-submit'>Add location</button>
