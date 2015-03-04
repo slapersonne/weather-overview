@@ -1,7 +1,7 @@
 WeatherOverviewApp.module("LocationsApp.Create", function(Create, WeatherOverviewApp, Backbone, Marionette, $, _){
 	
 	Create.Location = Marionette.ItemView.extend({
-		template: "#location-creation-form-layout",
+		template: "#location-creation-form-template",
 		events: {
 			"click button.js-submit": "submitClicked"
 		},
