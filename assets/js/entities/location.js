@@ -2,7 +2,8 @@ WeatherOverviewApp.module("Entities", function(Entities, WeatherOverviewApp, Bac
 
 	Entities.Location = Backbone.Model.extend({
 		defaults: {
-			title: "Default Title"
+			title: "Default Title",
+			temperature: 0
 		}
 	});
 
@@ -13,9 +14,9 @@ WeatherOverviewApp.module("Entities", function(Entities, WeatherOverviewApp, Bac
 	var locations;
 	var initializeLocations = function(){
 		locations = new Entities.LocationCollection([
-			{ id: "1", title: "63000", name: "Clermont-Ferrand", latitude: "45.78", longitude: "3.08" },
-			{ id: "2", name: "Royat", latitude: "45.76", longitude:"3.05" },
-			{ id: "3", title: "02170", name: "Le Nouvion en Thiérache", latitude: "50.02", longitude: "3.79" }
+			{ title: "63000", cityName: "Clermont-Ferrand", latitude: "45.78", longitude: "3.08" },
+			{ cityName: "Royat", latitude: "45.76", longitude:"3.05" },
+			{ title: "02170", cityName: "Le Nouvion en Thierache", latitude: "50.02", longitude: "3.79" }
 		]);
 	};
 

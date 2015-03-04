@@ -37,13 +37,16 @@
 
         / Static template for location creation button
         %script#location-panel-template{:type => "text/template"}
-            %a.btn.btn-lg.btn-success.js-create{:href => "#"} 
+            %button.btn.btn-lg.btn-success.js-create 
                 %i.glyphicon.glyphicon-plus
                 Add Location
+            %button.btn.btn-lg.btn-primary.js-sync 
+                %i.glyphicon.glyphicon-refresh
+                Refresh
+
 
         / Location list container template (uses 'container' class for Bootsrap's grid usage)
-        %script#location-list-template{:type => "text/template"}
-            .container.list-group
+
 
         / Location list item template
         %script#location-list-item-template{:type => "text/template"}
@@ -54,12 +57,12 @@
                 .col-sm-4.col-xs-10
                     %strong <%- title %>
                     %br
-                    <%- name %>
+                    <%- cityName %>
                     / This area also includes weather and temperature on xs devices
                     %span.visible-xs-inline
                         %br
                         %i.wi.wi-day-lightning
-                        12°C
+                        <%- temperature %> K
                 / GPS coordinates area, not displayed on xs devices
                 .col-sm-3.hidden-xs
                     Latitude : <%- latitude %>
@@ -69,13 +72,13 @@
                 .col-sm-4.visible-sm-block
                     %i.wi.wi-day-lightning
                     %br
-                    12°C
+                    <%- temperature %> K
                 / Weather area, uses weather-icons icons to display weather
                 .col-md-2.hidden-xs.hidden-sm.weather-info
                     %i.wi.wi-day-lightning
                 / Temperature area (with unit)
                 .col-md-2.hidden-xs.hidden-sm.weather-info
-                    12°C
+                    <%- temperature %> K
                 / Delete button area. The delete button is a single cross icon
                 %a.glyphicon.glyphicon-remove.col-sm-1.col-xs-2.delete-button.js-delete
 
@@ -90,7 +93,7 @@
                 .form-group
                     %label{:for => "location-name"} City Name
                     %br
-                    %input#location-name{:name => "name", :type => "text", :value => ""}
+                    %input#location-name{:name => "cityName", :type => "text", :value => ""}
                 .form-group
                     %label{:for => "location-title"} Latitude
                     %br

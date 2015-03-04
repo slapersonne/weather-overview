@@ -13,23 +13,35 @@ WeatherOverviewApp.module("LocationsApp.List", function(List, WeatherOverviewApp
 		template: "#location-panel-template",
 
 		events: {
-			"click a.js-create": "createClicked"
+			"click button.js-create": "createClicked",
+			"click button.js-sync": "syncClicked"
 		},
 
 		createClicked: function(e){
-			e.preventDefault();
 			e.stopPropagation();
 			this.trigger("location:create");
+		},
+
+		syncClicked: function(e){
+			e.stopPropagation();
+			this.trigger("location:sync");
 		}
 	});
 
 	List.Location = Marionette.ItemView.extend({
-		tagName: "tr",
 		template: "#location-list-item-template",
 
 		events: {
 			"click a.js-delete": "deleteClicked"
 		}, 
+
+		modelEvents: {
+            'change': "modelChanged"
+        },
+
+        modelChanged: function() {
+            this.render();
+        },
 
 		deleteClicked: function(e){
 			e.stopPropagation();
@@ -45,11 +57,9 @@ WeatherOverviewApp.module("LocationsApp.List", function(List, WeatherOverviewApp
 
 	});
 
-	List.Locations = Marionette.CompositeView.extend({
-		tagName: "table",
-		className: "table table-hover",
-		template: "#location-list-template",
-		childView: List.Location
+	List.Locations = Marionette.CollectionView.extend({
+		childView: List.Location,
+		className: "container"
 	});
 
 });
