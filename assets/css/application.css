@@ -3,7 +3,7 @@ body {
 }
 
 .container {
-	padding-top: 30px; /* give some air to the container */
+	padding-top: 30px; /* give some place to the container */
 }
 
 .location-text {
@@ -11,7 +11,7 @@ body {
 }
 
 .location-text .weather-info {
-	font-size: 40px; /* default police size for weather data (bigger than other info) */
+	font-size: 35px; /* default police size for weather data (bigger than other info) */
 }
 
 .delete-button {

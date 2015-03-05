@@ -11,23 +11,99 @@ WeatherOverviewApp.module("LocationsApp.List", function(List, WeatherOverviewApp
 				// Key is linked to an account created for this application
 				var urlKey = '23f6177c1e3fc62a86b59f46e70a761a';
 				// Recover city name
+
 				var cityName = location.get("cityName");
 				// Recover GPS coordinates
 				var latitude = location.get("latitude");
 				var longitude = location.get("longitude");
 
+				// Recover unit
+				var unit;
+				switch (location.get("unit")) {
+					case 'C' :
+						unit = "&units=metric";
+						break;
+					case 'F' :
+						unit = "&units=imperial";
+						break;
+					default :
+						unit = "";
+				}
+
+				// Unit can be set in the request
+				var urlEnd = unit + '&APPID=' + urlKey;
+
 				// OpenWeatherMap accepts requests by city name and by GPS coordinates, but requests by city name are more effective because API can use the cache server
 				if (cityName !== undefined && cityName !== "") {
 					// Request by city name
-					return (urlRoot + '?q=' + cityName + '&APPID=' + urlKey);
+					return (urlRoot + '?q=' + cityName + urlEnd);
 				} else if (latitude !== undefined && longitude != undefined) {
 					// Request by coordinates
-					return (urlRoot + '?lat=' + latitude + '&lon=' + longitude + '&APPID=' + urlKey);
+					return (urlRoot + '?lat=' + latitude + '&lon=' + longitude + urlEnd);
 				} else {
 					// Unable to build a proper request url
 					return undefined;
 				}
 			};
+
+			var findWeatherIconClass = function (code) {
+
+				// Find correspondant weather icon class :
+	        	var wiClass;
+	        	switch (code) {
+
+	        		// Day weather icons
+	        		case "01d" :
+	        			wiClass = "wi-day-sunny";
+	        			break;
+	        		case "02d" :
+	        			wiClass = "wi-day-sunny-overcast";
+	        			break;
+	        		case "03d" :
+	        			wiClass = "wi-day-cloudy";
+	        			break;
+	        		case "10d" :
+	        			wiClass = "wi-day-rain";
+	        			break;
+
+	        		// Night weather icons
+	        		case "01n" :
+	        			wiClass = "wi-night-clear";
+	        			break;
+	        		case "02n" :
+	        			wiClass = "wi-night-partly-cloudy";
+	        			break;
+	        		case "03n" :
+	        			wiClass = "wi-night-cloudy";
+	        			break;
+	        		case "10n" :
+	        			wiClass = "wi-night-alt-rain";
+	        			break;
+
+	        		// Night & day weather icons (clouds, ...)
+	        		case "04d" :
+	        		case "04n" :
+	        			wiClass = "wi-cloudy";
+	        			break;
+	        		case "09d" :
+	        		case "09n" :
+	        			wiClass = "wi-rain";
+	        			break;
+	        		case "11d" :
+	        		case "11n" :
+	        			wiClass = "wi-thunderstorm";
+	        			break;
+	        		case "13d" :
+	        		case "13n" :
+	        			wiClass = "wi-snow";
+	        			break;
+
+	        		// Default, when weather could not be retrieved
+	        		default :
+	        			wiClass = "wi-alien";
+	        	}
+	        	return (wiClass);
+			}
 
 			var populateLocationWeather = function (location) {
 
@@ -50,7 +126,7 @@ WeatherOverviewApp.module("LocationsApp.List", function(List, WeatherOverviewApp
 									"longitude" : data.coord.lon,
 									"cityName" : data.name,
 									"temperature" : data.main.temp,
-									"weather_icon_code" : data.weather[0].icon
+									"weather" : findWeatherIconClass(data.weather[0].icon)
 								});
 
 							} else {
@@ -59,7 +135,7 @@ WeatherOverviewApp.module("LocationsApp.List", function(List, WeatherOverviewApp
 
 								location.set({
 									"temperature" : "??",
-									"weather_icon_code" : "??"
+									"weather" : "??"
 								});
 
 							}
@@ -106,16 +182,22 @@ WeatherOverviewApp.module("LocationsApp.List", function(List, WeatherOverviewApp
 				// On form submit
 				view.on("form:submit", function(data){
 					
-					// Populate new location with form input
-					newLocation.set(data);
+					/* If there is no validation error */
+					//if (newLocation.save(data)) {
 
-					// Populate model with weather info
-					populateLocationWeather(newLocation);
+						// Populate new location with form input
+						newLocation.set(data);
+						// Populate model with weather info
+						populateLocationWeather(newLocation);
+						// Add location to the locations list
+						locations.add(newLocation);
+						// Remove creation form view
+						WeatherOverviewApp.dialogRegion.empty();
 
-					// Add location to the locations list
-					locations.add(newLocation);
-					// Remove creation form view
-					WeatherOverviewApp.dialogRegion.empty();
+					/*} else {
+						// There are validation errors
+						view.triggerMethod("form:data:invalid", newLocation.validationError);
+					}*/
 
 				});
 

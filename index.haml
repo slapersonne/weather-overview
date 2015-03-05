@@ -12,6 +12,7 @@
         %link{:href => "./external/css/jquery-ui.css", :rel => "stylesheet"}
         %link{:href => "./external/css/jquery-ui-theme.css", :rel => "stylesheet"}
         %link{:href => "./external/css/jquery-ui-structure.css", :rel => "stylesheet"}
+        %link{:href => "./external/css/jquery-ui-1.10.0.custom", :rel => "stylesheet"}
         %link{:href => "./external/css/weather-icons.css", :rel => "stylesheet"}
 
         / Internal CSS dependencies
@@ -45,9 +46,7 @@
                 Refresh
 
 
-        / Location list container template (uses 'container' class for Bootsrap's grid usage)
-
-
+        / Location list container uses 'container' class for Bootsrap's grid usage
         / Location list item template
         %script#location-list-item-template{:type => "text/template"}
             / Each item belongs to a row with up to 5 areas : title & cityName, gps coordinates, weather icon, temperature, and delete button
@@ -61,8 +60,8 @@
                     / This area also includes weather and temperature on xs devices
                     %span.visible-xs-inline
                         %br
-                        %i.wi.wi-day-lightning
-                        <%- temperature %> K
+                        <i class="wi <%- weather %>" ></i>
+                        <%- temperature %> °<%- unit %>
                 / GPS coordinates area, not displayed on xs devices
                 .col-sm-3.hidden-xs
                     Latitude : <%- latitude %>
@@ -70,15 +69,15 @@
                     Longitude : <%- longitude %>
                 / Weather & Temperature area, displayed in a single block on small-screen devices
                 .col-sm-4.visible-sm-block
-                    %i.wi.wi-day-lightning
+                    <i class="wi <%- weather %>" ></i>
                     %br
-                    <%- temperature %> K
+                    <%- temperature %> °<%- unit %>
                 / Weather area, uses weather-icons icons to display weather
                 .col-md-2.hidden-xs.hidden-sm.weather-info
-                    %i.wi.wi-day-lightning
+                    <i class="wi <%- weather %>" ></i>
                 / Temperature area (with unit)
                 .col-md-2.hidden-xs.hidden-sm.weather-info
-                    <%- temperature %> K
+                    <%- temperature %> °<%- unit %>
                 / Delete button area. The delete button is a single cross icon
                 %a.glyphicon.glyphicon-remove.col-sm-1.col-xs-2.delete-button.js-delete
 
@@ -89,19 +88,25 @@
                 .form-group
                     %label{:for => "location-title"} Title
                     %br
-                    %input#location-title{:name => "title", :type => "text", :value => ""}
+                    %input#location-title{:name => "title", :type => "text"}
                 .form-group
                     %label{:for => "location-name"} City Name
                     %br
-                    %input#location-name{:name => "cityName", :type => "text", :value => ""}
+                    %input#location-name{:name => "cityName", :type => "text"}
                 .form-group
-                    %label{:for => "location-title"} Latitude
+                    %label{:for => "location-latitude"} Latitude
                     %br
-                    %input#location-latitude{:name => "latitude", :type => "text", :value => ""}
+                    %input#location-latitude{:name => "latitude", :type => "text"}
                 .form-group
-                    %label{:for => "location-title"} Longitude
+                    %label{:for => "location-longitude"} Longitude
                     %br
-                    %input#location-longitude{:name => "longitude", :type => "text", :value => ""}
+                    %input#location-longitude{:name => "longitude", :type => "text"}
+                .form-group
+                    %label{:for => "location-unit"} Unit
+                    %select#unit{:name => "unit"}
+                        %option{:value => "K"} Kelvin
+                        %option{:value => "C"} Celcius
+                        %option{:value => "F"} Fahrenheit
                 %button.btn.btn-success.js-submit Add location
 
         %footer
@@ -119,7 +124,6 @@
         / Internal js dependencies
         %script{:type => "text/javascript", :src => "./assets/js/weatherOverview.js"}
         %script{:type => "text/javascript", :src => "./assets/js/entities/location.js"}
-        %script{:type => "text/javascript", :src => "./assets/js/entities/query.js"}
         %script{:type => "text/javascript", :src => "./assets/js/apps/locations/list/listView.js"}
         %script{:type => "text/javascript", :src => "./assets/js/apps/locations/list/listController.js"}
         %script{:type => "text/javascript", :src => "./assets/js/apps/locations/create/createView.js"}
