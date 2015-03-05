@@ -50,7 +50,7 @@
       <!-- The number of areas is reduced on smaller-screen devices -->
       <div class='row list-group-item location-text'>
         <!-- Title & City name area -->
-        <div class='col-sm-4 col-xs-10'>
+        <div class='col-sm-4 col-xs-10 text-left'>
           <strong><%- title %></strong>
           <br>
           <%- cityName %>
@@ -62,27 +62,27 @@
           </span>
         </div>
         <!-- GPS coordinates area, not displayed on xs devices -->
-        <div class='col-sm-3 hidden-xs'>
+        <div class='col-sm-3 hidden-xs text-left'>
           Latitude : <%- latitude %>
           <br>
           Longitude : <%- longitude %>
         </div>
         <!-- Weather & Temperature area, displayed in a single block on small-screen devices -->
-        <div class='col-sm-4 visible-sm-block'>
+        <div class='col-sm-4 visible-sm-block text-center'>
           <i class="wi <%- weather %>" ></i>
           <br>
           <%- temperature %> °<%- unit %>
         </div>
         <!-- Weather area, uses weather-icons icons to display weather -->
-        <div class='col-md-2 hidden-xs hidden-sm weather-info'>
+        <div class='col-md-2 hidden-xs hidden-sm text-center weather-info'>
           <i class="wi <%- weather %>" ></i>
         </div>
         <!-- Temperature area (with unit) -->
-        <div class='col-md-2 hidden-xs hidden-sm weather-info'>
+        <div class='col-md-2 hidden-xs hidden-sm text-center weather-info'>
           <%- temperature %> °<%- unit %>
         </div>
         <!-- Delete button area. The delete button is a single cross icon -->
-        <a class='glyphicon glyphicon-remove col-sm-1 col-xs-2 delete-button js-delete'></a>
+        <a class='glyphicon glyphicon-remove col-sm-1 col-xs-2 delete-button text-center js-delete'></a>
       </div>
     </script>
     <!-- Creation form template -->

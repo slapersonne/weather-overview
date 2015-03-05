@@ -52,7 +52,7 @@
             / The number of areas is reduced on smaller-screen devices
             .row.list-group-item.location-text
                 / Title & City name area
-                .col-sm-4.col-xs-10
+                .col-sm-4.col-xs-10.text-left
                     %strong <%- title %>
                     %br
                     <%- cityName %>
@@ -62,23 +62,23 @@
                         <i class="wi <%- weather %>" ></i>
                         <%- temperature %> °<%- unit %>
                 / GPS coordinates area, not displayed on xs devices
-                .col-sm-3.hidden-xs
+                .col-sm-3.hidden-xs.text-left
                     Latitude : <%- latitude %>
                     %br
                     Longitude : <%- longitude %>
                 / Weather & Temperature area, displayed in a single block on small-screen devices
-                .col-sm-4.visible-sm-block
+                .col-sm-4.visible-sm-block.text-center
                     <i class="wi <%- weather %>" ></i>
                     %br
                     <%- temperature %> °<%- unit %>
                 / Weather area, uses weather-icons icons to display weather
-                .col-md-2.hidden-xs.hidden-sm.weather-info
+                .col-md-2.hidden-xs.hidden-sm.text-center.weather-info
                     <i class="wi <%- weather %>" ></i>
                 / Temperature area (with unit)
-                .col-md-2.hidden-xs.hidden-sm.weather-info
+                .col-md-2.hidden-xs.hidden-sm.text-center.weather-info
                     <%- temperature %> °<%- unit %>
                 / Delete button area. The delete button is a single cross icon
-                %a.glyphicon.glyphicon-remove.col-sm-1.col-xs-2.delete-button.js-delete
+                %a.glyphicon.glyphicon-remove.col-sm-1.col-xs-2.delete-button.text-center.js-delete
 
         / Creation form template
         %script#location-creation-form-template{:type => "text/template"}

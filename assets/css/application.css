@@ -8,6 +8,7 @@ body {
 
 .location-text {
 	font-size: 20px; /* default police size for displayed data */
+	text-align: center;
 }
 
 .location-text .weather-info {
