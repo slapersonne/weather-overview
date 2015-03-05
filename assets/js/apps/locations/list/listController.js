@@ -125,8 +125,8 @@ WeatherOverviewApp.module("LocationsApp.List", function(List, WeatherOverviewApp
 									"latitude" : data.coord.lat,
 									"longitude" : data.coord.lon,
 									"cityName" : data.name,
-									"temperature" : data.main.temp,
-									"weather" : findWeatherIconClass(data.weather[0].icon)
+									"temperature" : Math.round(data.main.temp * 10) / 10, 	// Keep only one decimal
+									"weather" : findWeatherIconClass(data.weather[0].icon) 	// We replace the received value by the corresponding weather icon class
 								});
 
 							} else {
@@ -181,23 +181,17 @@ WeatherOverviewApp.module("LocationsApp.List", function(List, WeatherOverviewApp
 
 				// On form submit
 				view.on("form:submit", function(data){
-					
-					/* If there is no validation error */
-					//if (newLocation.save(data)) {
 
-						// Populate new location with form input
-						newLocation.set(data);
-						// Populate model with weather info
-						populateLocationWeather(newLocation);
-						// Add location to the locations list
-						locations.add(newLocation);
-						// Remove creation form view
-						WeatherOverviewApp.dialogRegion.empty();
+					// Populate new location with form input
+					newLocation.set(data);				
+					// Populate model with weather info
+					populateLocationWeather(newLocation);
+					// Add location to the locations list
+					locations.add(newLocation);
+					// Remove creation form view
+					WeatherOverviewApp.dialogRegion.empty();
 
-					/*} else {
-						// There are validation errors
-						view.triggerMethod("form:data:invalid", newLocation.validationError);
-					}*/
+					//}
 
 				});
 

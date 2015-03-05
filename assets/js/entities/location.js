@@ -10,44 +10,8 @@ WeatherOverviewApp.module("Entities", function(Entities, WeatherOverviewApp, Bac
 			// Weather data are unknown while they are not requested
 			weather : "??",
 			temperature: "??"
-		}/*,
+		}
 
-		// Location validator
-		validate: function (attrs, options) {
-
-			var errors = {};
-
-			if (!attrs.title) {
-				errors.title = "is mandatory";
-			}
-
-			var latitude = parseFloat(attrs.latitude);
-			var longitude = parseFloat(attrs.latitude);
-
-			if (latitude == NaN || latitude < -90 || latitude > 90) {
-				errors.latitude = "must be a number between -90 and 90";
-			}
-
-			if (longitude == NaN || longitude < -180 || longitude > 180) {
-				errors.longitude = "must be a number between -180 and 180";
-			}
-
-			// User cannot select city name AND GPS coordinates : the application could not use the two entries to get weather data (so GPS coordinates would be overrided by those returned by the API)
-			if ((!attrs.cityName && !(attrs.latitude && attrs.longitude))
-				||
-				(attrs.cityName && (attrs.latitude && attrs.longitude))) 
-			{
-				errors.cityName = "city name OR GPS coordinates must be selected";
-				errors.latitude = "city name OR GPS coordinates must be selected";
-				errors.longitude = "city name OR GPS coordinates must be selected";
-			}
-
-			// If there are errors, return errors
-			if (! _.isEmpty(errors)) {
-				return errors;
-			}
-
-		}*/
 	});
 
 	// Location Collection
