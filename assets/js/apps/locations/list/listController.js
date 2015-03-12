@@ -97,6 +97,10 @@ WeatherOverviewApp.module("LocationsApp.List", function(List, WeatherOverviewApp
 	        		case "13n" :
 	        			wiClass = "wi-snow";
 	        			break;
+	        		case "50d" :
+	        		case "50n" :
+	        			wiClass = "wi-fog";
+	        			break;
 
 	        		// Default, when weather could not be retrieved
 	        		default :
