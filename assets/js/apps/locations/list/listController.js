@@ -112,43 +112,43 @@ WeatherOverviewApp.module("LocationsApp.List", function(List, WeatherOverviewApp
 			var populateLocationWeather = function (location) {
 
 				// Build the request url
-					var url = buildRequestUrl(location);
+				var url = buildRequestUrl(location);
 
-					if (url !== undefined) {
+				if (url !== undefined) {
 
-						// Request the current weather
-						$.getJSON(url, function (data){
+					// Request the current weather
+					$.getJSON(url, function (data){
 
-							// Recover return code
-							var returnCode = data.cod;
+						// Recover return code
+						var returnCode = data.cod;
 
-							// If request is OK
-							if (returnCode !== undefined && returnCode === 200) {
+						// If request is OK
+						if (returnCode !== undefined && returnCode === 200) {
 
-								location.set({
-									"latitude" : data.coord.lat,
-									"longitude" : data.coord.lon,
-									"cityName" : data.name,
-									"temperature" : Math.round(data.main.temp * 10) / 10, 	// Keep only one decimal
-									"weather" : findWeatherIconClass(data.weather[0].icon) 	// We replace the received value by the corresponding weather icon class
-								});
+							location.set({
+								"latitude" : data.coord.lat,
+								"longitude" : data.coord.lon,
+								"cityName" : data.name,
+								"temperature" : Math.round(data.main.temp * 10) / 10, 	// Keep only one decimal
+								"weather" : findWeatherIconClass(data.weather[0].icon) 	// We replace the received value by the corresponding weather icon class
+							});
 
-							} else {
-								// No result for this request
-								alert("Error : No weather data for the location " + location.get("title"));
+						} else {
+							// No result for this request
+							alert("Error : No weather data for the location " + location.get("title"));
 
-								location.set({
-									"temperature" : "??",
-									"weather" : "??"
-								});
+							location.set({
+								"temperature" : "??",
+								"weather" : "??"
+							});
 
-							}
-						});
+						}
+					});
 
-					} else {
-						// The requested url could not be defined
-						alert("Error : City name or GPS coordinates are mandatory to retrieve current weather for the location " + location.get("title"));
-					}
+				} else {
+					// The requested url could not be defined
+					alert("Error : City name or GPS coordinates are mandatory to retrieve current weather for the location " + location.get("title"));
+				}
 			}
 
 			// Locations layout view (buttons panel + locations list)
@@ -163,6 +163,16 @@ WeatherOverviewApp.module("LocationsApp.List", function(List, WeatherOverviewApp
 			var locationsListView = new List.Locations({
 				collection: locations
 			});
+
+			var populateAllLocationsWeather = function () {
+				// For each location
+				locations.forEach(function(location) {
+
+					// Populate model with weather info
+					populateLocationWeather(location);
+
+				});
+			}
 
 			// On locations panel view (creation button click), we want to access the location creation form
 			locationsPanelView.on("location:create", function() {
@@ -190,6 +200,8 @@ WeatherOverviewApp.module("LocationsApp.List", function(List, WeatherOverviewApp
 					newLocation.set(data);				
 					// Populate model with weather info
 					populateLocationWeather(newLocation);
+					// Save new location
+					newLocation.save();
 					// Add location to the locations list
 					locations.add(newLocation);
 					// Remove creation form view
@@ -206,20 +218,14 @@ WeatherOverviewApp.module("LocationsApp.List", function(List, WeatherOverviewApp
 			// On locations panel view location:sync (refresh button click) : we want to request the API to update all locations' weather data
 			locationsPanelView.on("location:sync", function(){
 
-				// For each location
-				locations.forEach(function(location) {
-
-					// Populate model with weather info
-					populateLocationWeather(location);
-
-				});
+				populateAllLocationsWeather();
 
 			});
 
 			// On locations view location:delete : we want to delete the location
 			locationsListView.on("childview:location:delete", function(childView, model){
-				// Remove location from model
-				locations.remove(model);
+				// Destroy model
+				model.destroy();
 			});
 
 			// On location layout view
@@ -231,6 +237,9 @@ WeatherOverviewApp.module("LocationsApp.List", function(List, WeatherOverviewApp
 
 			// Locations layout view is displayed in mainRegion
 			WeatherOverviewApp.mainRegion.show(locationsLayoutView);
+
+			// At start, populate all locations (recovered from initialization or web storage) with weather data
+			populateAllLocationsWeather();
 		}
 
 	}
